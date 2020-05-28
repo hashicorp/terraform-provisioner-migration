@@ -8,8 +8,3 @@ of local-exec, remote-exec, and the file provisioner.
 The examples in this repository are not meant to be exhaustive, but 
 to help you get your configurations into a state to remove dependencies
 on these deprecated components.
-
-In the long-term, using solutions other than provisioners, such as
-using existing providers, writing custom providers, or packaging
-your applications using Packer will provide a more consistent experience
-with Terraform than with using provisioners.
