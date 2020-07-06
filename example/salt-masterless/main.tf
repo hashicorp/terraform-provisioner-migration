@@ -119,10 +119,10 @@ resource "aws_instance" "web" {
     timeout     = "1m"
   }
 
-    provisioner "salt-masterless" {
-      local_state_tree  = "${path.root}/salt"
-      remote_state_tree = "/srv/salt"
-    }
+  provisioner "salt-masterless" {
+    local_state_tree  = "${path.root}/salt"
+    remote_state_tree = "/srv/salt"
+  }
 }
 
 output "id" {
