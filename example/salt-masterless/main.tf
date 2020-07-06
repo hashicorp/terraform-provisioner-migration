@@ -7,7 +7,7 @@ data "aws_ami" "ubuntu" {
 
   filter {
     name   = "name"
-    values = ["ubuntu/images/hvm-ssd/ubuntu-trusty-14.04-amd64-server-*"]
+    values = ["ubuntu/images/hvm-ssd/ubuntu-bionic-18.04-amd64-server-*"]
   }
 
   filter {
@@ -18,8 +18,8 @@ data "aws_ami" "ubuntu" {
   owners = ["099720109477"] # Canonical
 }
 
-resource "aws_key_pair" "deployer" {
-  key_name   = "deployer-key"
+resource "aws_key_pair" "deploy" {
+  key_name   = "deploy-key"
   public_key = file("./mykey.pub")
 }
 
@@ -103,7 +103,7 @@ resource "aws_instance" "web" {
   instance_type               = "t2.micro"
   subnet_id                   = aws_subnet.subnet_public.id
   vpc_security_group_ids      = [aws_security_group.sg_22_80.id]
-  key_name                    = aws_key_pair.deployer.key_name
+  key_name                    = aws_key_pair.deploy.key_name
   associate_public_ip_address = true
 
   tags = {
@@ -119,10 +119,29 @@ resource "aws_instance" "web" {
     timeout     = "1m"
   }
 
-  provisioner "salt-masterless" {
-    local_state_tree  = "${path.root}/salt"
-    remote_state_tree = "/srv/salt"
+  provisioner "file" {
+    source      = "${path.root}/salt"
+    destination = "/tmp/salt"
   }
+
+  provisioner "remote-exec" {
+    inline = [
+      # Install and bootstrap salt
+      "curl -L https://bootstrap.saltstack.com | sudo sh",
+      # Remove directory /srv/salt to ensure it is clear
+      "sudo rm -rf /srv/salt",
+      # Move state tree from temporary directory to /srv/salt
+      "sudo mv /tmp/salt /srv/salt",
+      # Run salt-call
+      "sudo salt-call --local  state.highstate --file-root=/srv/salt --pillar-root=/srv/pillar --retcode-passthrough -l info"
+    ]
+  }
+
+  # This is the equivalent salt-masterless block of the above file/remote-exec combination:
+  # provisioner "salt-masterless" {
+  #   local_state_tree  = "${path.root}/salt"
+  #   remote_state_tree = "/srv/salt"
+  # }
 }
 
 output "id" {
