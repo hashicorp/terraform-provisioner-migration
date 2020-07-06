@@ -7,7 +7,7 @@ management.
 In order to migrate from using the now-deprecated vendor-specific provisioners (`chef`, `habitat`, `puppet`, or `salt-masterless`), you'll need to modify your configuration to remove the reliance on these provisioners.
 
 This guide focuses on migrating from your current approach to a similar one using the native `file` and 
-`remote-exec` provisioners. However, there are other, preferred, approaches to initializing resources rather than using `provisioner` blocks, including leveraging Packer, cloud-init, providers or user_data for initalizing your instances. You can find out more about these approaches at HashiCorp Learn.
+`remote-exec` provisioners. However, there are other, preferred, approaches to initializing resources rather than using `provisioner` blocks, including leveraging Packer, cloud-init, providers or user_data for initalizing your instances. You can find out more about these approaches on [HashiCorp Learn](https://learn.hashicorp.com/terraform).
 
 ## Running configuration management on the remote machine
 
