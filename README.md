@@ -42,7 +42,7 @@ We are assuming you are replacing this provisioner that is already functioning, 
 
 The [`local_state_tree`](https://www.terraform.io/docs/provisioners/salt-masterless.html#local_state_tree) is the path of your [local state tree](https://docs.saltstack.com/en/latest/ref/states/highstate.html#the-salt-state-tree), the collection of SLS (.sls) files Salt will use. The `remote_state_tree` is where the state tree will be on the target server.
 
-We first need to get our local state tree on the remote instance. We will do that by using the `file` provisioner:
+We need to get our local state tree onto the remote instance. We will do that by using the `file` provisioner:
 
 ```
 provisioner "file" {
