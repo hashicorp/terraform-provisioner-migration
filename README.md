@@ -16,7 +16,7 @@ and (if applicable) copy local files to the remote instance to be used for confi
 In this guide, we will use the `salt-masterless` provisioner as an example to replace with native
 provisioners.
 
-> The process described in this guide is how to run configuration management _on_ the remote machine, but if you are not yet in this scenario, it's highly encouraged you seek other ways to manage your machines. You can run configuration management using `local-exec` to run configuration management on your own machine rather than on the remote. This removes the need for the permissive network access required in order to make `remote-exec` connections.
+> The process described in this guide is how to run configuration management _on_ the remote machine, but if you are not yet in this scenario, it's highly encouraged you seek other ways to manage your machines. For example, one option is you can run configuration management using `local-exec` to run configuration management on your own machine rather than on the remote. This removes the need for the permissive network access required in order to make `remote-exec` connections.
 
 There are a few steps to running configuration management on your remote machine:
 
@@ -37,6 +37,8 @@ provisioner "salt-masterless" {
    remote_state_tree = "/srv/salt"
 }
 ```
+
+This pre-supposes you are replacing this provisioner that is already functioning, meaning you have a working `connection` block and are able to access your remote instance with simple `remote-exec` commands. In the example in this repository, the necessary network infrastructure enabling this is broken out into a separate module to make our example code easier to read.
 
 The [`local_state_tree`](https://www.terraform.io/docs/provisioners/salt-masterless.html#local_state_tree) is the path of your [local state tree](https://docs.saltstack.com/en/latest/ref/states/highstate.html#the-salt-state-tree), the collection of SLS (.sls) files Salt will use. The `remote_state_tree` is where the state tree will be on the target server.
 
