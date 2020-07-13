@@ -42,13 +42,7 @@ We are assuming you are replacing this provisioner that is already functioning, 
 
 The [`local_state_tree`](https://www.terraform.io/docs/provisioners/salt-masterless.html#local_state_tree) is the path of your [local state tree](https://docs.saltstack.com/en/latest/ref/states/highstate.html#the-salt-state-tree), the collection of SLS (.sls) files Salt will use. The `remote_state_tree` is where the state tree will be on the target server.
 
-In the example provided here, we are mimicking what the `salt-masterless` provisioner does:
-
-- Install and bootstrap Salt
-- Set-up the remote state tree
-- Run Salt
-
-However, we first need to get our local state tree on the remote instance. We will do that by using the `file` provisioner:
+We first need to get our local state tree on the remote instance. We will do that by using the `file` provisioner:
 
 ```
 provisioner "file" {
@@ -57,9 +51,13 @@ provisioner "file" {
 }
 ```
 
-Note that we are putting the state tree into a temporary location, but we can move it in the later remote-exec step.
+Note that we are putting the state tree into a temporary location, but we can move it in the later `remote-exec` step.
 
-Now that our .sls files will be on the instance, our remote-exec block has everything it needs to mimic the salt-masterless provisioner:
+Now that our .sls files will be on the instance, our `remote-exec` block will do the rest of the work:
+
+- Install and bootstrap Salt
+- Set-up the remote state tree (moving from /tmp to its remote location)
+- Run Salt
 
 ```terraform
 provisioner "remote-exec" {
