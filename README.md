@@ -16,7 +16,7 @@ and (if applicable) copy local files to the remote instance to be used for confi
 In this guide, we will use the `salt-masterless` provisioner as an example to replace with native
 provisioners.
 
-### Using `file` and `remote-exec` to run configuration management
+> The process described in this guide is how to run configuration management _on_ the remote machine, but if you are not yet in this scenario, it's highly encouraged you seek other ways to manage your machines. You can run configuration management using `local-exec` to run configuration management on your own machine rather than on the remote. This removes the need for the permissive network access required in order to make `remote-exec` connections.
 
 There are a few steps to running configuration management on your remote machine:
 
@@ -26,7 +26,6 @@ There are a few steps to running configuration management on your remote machine
 
 You may choose to combine the `remote-exec` steps into one block, but the essentials remain the same.
 
-> The process described in this guide is how to run configuration management _on_ the remote machine, but if you are not yet in this scenario, it's highly encouraged you seek other ways to manage your machines. You can run configuration management using `local-exec` to run configuration management on your own machine rather than on the remote. This removes the need for the permissive network access required in order to make `remote-exec` connections.
 
 ## Example: Replacing `salt-masterless` with `file` and `remote-exec`
 
