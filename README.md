@@ -38,7 +38,7 @@ provisioner "salt-masterless" {
 }
 ```
 
-This pre-supposes you are replacing this provisioner that is already functioning, meaning you have a working `connection` block and are able to access your remote instance with simple `remote-exec` commands. In the example in this repository, the necessary network infrastructure enabling this is broken out into a separate module to make our example code easier to read.
+We are assuming you are replacing this provisioner that is already functioning, meaning you have a working `connection` block and are able to access your remote instance with simple `remote-exec` commands. In the example in this repository, the necessary network infrastructure enabling this is broken out into a separate module to make our example code easier to read.
 
 The [`local_state_tree`](https://www.terraform.io/docs/provisioners/salt-masterless.html#local_state_tree) is the path of your [local state tree](https://docs.saltstack.com/en/latest/ref/states/highstate.html#the-salt-state-tree), the collection of SLS (.sls) files Salt will use. The `remote_state_tree` is where the state tree will be on the target server.
 
