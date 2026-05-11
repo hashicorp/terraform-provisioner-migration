@@ -1,3 +1,5 @@
+# Copyright IBM Corp. 2020, 2026
+
 variable "public_key_path" {
   default = "./mykey.pub"
 }
