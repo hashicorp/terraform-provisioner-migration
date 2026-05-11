@@ -1,3 +1,5 @@
+# Copyright IBM Corp. 2020, 2026
+
 resource "aws_vpc" "vpc" {
   cidr_block           = var.cidr_vpc
   enable_dns_support   = true
